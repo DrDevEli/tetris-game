@@ -24,6 +24,8 @@ class SoundManager:
                 "hard_drop": self._tone(120, 0.08, 0.2),
                 "game_over": self._tone(95, 0.35, 0.18),
             }
+            self.music = self._tone(130, 1.2, 0.08)
+            self.music_channel = pygame.mixer.Channel(1)
         except pygame.error:
             self.enabled = False
 
@@ -33,6 +35,23 @@ class SoundManager:
         sound = self.sounds.get(event)
         if sound:
             sound.play()
+
+    def play_music(self) -> None:
+        if not self.enabled:
+            return
+        if not self.music_channel.get_busy():
+            self.music_channel.play(self.music, loops=-1)
+
+    def set_sfx_volume(self, volume: float) -> None:
+        if not self.enabled:
+            return
+        for sound in self.sounds.values():
+            sound.set_volume(max(0.0, min(1.0, volume)))
+
+    def set_music_volume(self, volume: float) -> None:
+        if not self.enabled:
+            return
+        self.music_channel.set_volume(max(0.0, min(1.0, volume)))
 
     def _tone(self, frequency: int, duration: float, volume: float) -> pygame.mixer.Sound:
         sample_rate = 44100
