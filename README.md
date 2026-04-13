@@ -10,6 +10,9 @@ A playable Tetris clone built with Python and Pygame.
 - Line clear scoring and level-based speed increase
 - Pause and restart controls
 - Next piece preview and ghost piece
+- Start screen before gameplay
+- Generated sound effects for move/rotate/lock/line clear/game over
+- Local high-score persistence in `.tetris_highscore.json`
 
 ## Setup
 
@@ -43,3 +46,4 @@ pytest
 - P: pause
 - R: restart
 - Esc: quit
+- Enter: start from title screen

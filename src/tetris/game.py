@@ -21,6 +21,7 @@ from tetris.pieces import Piece, PieceFactory
 class TickResult:
     locked: bool = False
     cleared_lines: int = 0
+    game_over: bool = False
 
 
 class GameState:
@@ -63,9 +64,9 @@ class GameState:
             return True
         return False
 
-    def hard_drop(self) -> None:
+    def hard_drop(self) -> TickResult:
         if self.game_over or self.paused:
-            return
+            return TickResult()
         dropped = 0
         while self.board.is_valid_position(
             self.current_piece, y=self.current_piece.y + 1
@@ -73,7 +74,8 @@ class GameState:
             self.current_piece.y += 1
             dropped += 1
         self.score += dropped * HARD_DROP_POINTS
-        self._lock_and_spawn()
+        cleared, game_over = self._lock_and_spawn()
+        return TickResult(locked=True, cleared_lines=cleared, game_over=game_over)
 
     def rotate(self, direction: int = 1) -> bool:
         if self.game_over or self.paused:
@@ -101,8 +103,8 @@ class GameState:
         if self.board.is_valid_position(self.current_piece, y=self.current_piece.y + 1):
             self.current_piece.y += 1
             return TickResult()
-        cleared = self._lock_and_spawn()
-        return TickResult(locked=True, cleared_lines=cleared)
+        cleared, game_over = self._lock_and_spawn()
+        return TickResult(locked=True, cleared_lines=cleared, game_over=game_over)
 
     def ghost_drop_distance(self) -> int:
         distance = 0
@@ -112,9 +114,10 @@ class GameState:
             distance += 1
         return distance
 
-    def _lock_and_spawn(self) -> int:
+    def _lock_and_spawn(self) -> tuple[int, bool]:
         self.board.lock_piece(self.current_piece)
         cleared = self.board.clear_lines()
+        game_over = False
         if cleared:
             self.lines += cleared
             self.score += LINE_CLEAR_POINTS.get(cleared, 0) * self.level
@@ -124,7 +127,8 @@ class GameState:
         self.next_piece = self.factory.next_piece()
         if not self.board.is_valid_position(self.current_piece):
             self.game_over = True
-        return cleared
+            game_over = True
+        return cleared, game_over
 
     def _shape_states(self) -> list[list[tuple[int, int]]]:
         from tetris.pieces import SHAPES
