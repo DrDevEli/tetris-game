@@ -1,0 +1,18 @@
+[project]
+name = "tetris-game"
+version = "0.1.0"
+description = "A playable Tetris clone built with Pygame."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pygame",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

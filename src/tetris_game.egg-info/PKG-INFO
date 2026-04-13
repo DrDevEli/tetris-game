@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: tetris-game
+Version: 0.1.0
+Summary: A playable Tetris clone built with Pygame.
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: pygame
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+
+# Pygame Tetris
+
+A playable Tetris clone built with Python and Pygame.
+
+## Features
+
+- 7-bag randomizer for fair piece distribution
+- Rotation with basic wall kicks
+- Soft drop and hard drop scoring
+- Line clear scoring and level-based speed increase
+- Pause and restart controls
+- Next piece preview and ghost piece
+
+## Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -U pip
+pip install -e ".[dev]"
+```
+
+## Run
+
+```bash
+python -m src.main
+```
+
+## Test
+
+```bash
+pytest
+```
+
+## Controls
+
+- Left / A: move left
+- Right / D: move right
+- Down / S: soft drop
+- Up / W / X: rotate clockwise
+- Z: rotate counterclockwise
+- Space: hard drop
+- P: pause
+- R: restart
+- Esc: quit
