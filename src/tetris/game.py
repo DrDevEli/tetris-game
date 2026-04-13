@@ -16,6 +16,9 @@ from tetris.config import (
 )
 from tetris.pieces import Piece, PieceFactory
 
+SPRINT_LINES_TARGET = 40
+ULTRA_DURATION_MS = 120_000
+
 
 @dataclass
 class TickResult:
@@ -27,9 +30,11 @@ class TickResult:
 class GameState:
     def __init__(self, seed: int | None = None) -> None:
         self.factory = PieceFactory(seed=seed)
-        self.reset()
+        self.mode = "classic"
+        self.reset(mode=self.mode)
 
-    def reset(self) -> None:
+    def reset(self, mode: str = "classic") -> None:
+        self.mode = mode
         self.board = Board()
         self.score = 0
         self.lines = 0
@@ -41,6 +46,26 @@ class GameState:
         self.next_piece = self.factory.next_piece()
         if not self.board.is_valid_position(self.current_piece):
             self.game_over = True
+
+    def mode_detail(self, elapsed_ms: int) -> str | None:
+        if self.mode == "sprint":
+            remaining = max(0, SPRINT_LINES_TARGET - self.lines)
+            return f"Lines Left: {remaining}"
+        if self.mode == "ultra":
+            time_left = max(0, ULTRA_DURATION_MS - elapsed_ms)
+            return f"Time Left: {time_left // 1000}s"
+        return None
+
+    def apply_mode_rules(self, elapsed_ms: int) -> bool:
+        if self.game_over:
+            return False
+        if self.mode == "sprint" and self.lines >= SPRINT_LINES_TARGET:
+            self.game_over = True
+            return True
+        if self.mode == "ultra" and elapsed_ms >= ULTRA_DURATION_MS:
+            self.game_over = True
+            return True
+        return False
 
     @property
     def fall_delay_ms(self) -> int:

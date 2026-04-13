@@ -41,3 +41,20 @@ LINE_CLEAR_POINTS = {
 BASE_FALL_DELAY_MS = 700
 MIN_FALL_DELAY_MS = 80
 FALL_SPEED_STEP_MS = 55
+
+DEFAULT_SETTINGS = {
+    "music_volume": 0.35,
+    "sfx_volume": 0.7,
+    "fullscreen": False,
+    "keybinds": {
+        "move_left": ["left", "a"],
+        "move_right": ["right", "d"],
+        "soft_drop": ["down", "s"],
+        "rotate_cw": ["up", "w", "x"],
+        "rotate_ccw": ["z"],
+        "hard_drop": ["space"],
+        "pause": ["p"],
+        "restart": ["r"],
+        "settings": ["o"],
+    },
+}

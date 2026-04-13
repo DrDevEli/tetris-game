@@ -1,6 +1,6 @@
-# Pygame Tetris
+# Contructor
 
-A playable Tetris clone built with Python and Pygame.
+A playable block-stacking game built with Python and Pygame.
 
 ## Features
 
@@ -11,8 +11,11 @@ A playable Tetris clone built with Python and Pygame.
 - Pause and restart controls
 - Next piece preview and ghost piece
 - Start screen before gameplay
+- Mode select screen: Classic, Sprint (40 lines), Ultra (2 minutes)
 - Generated sound effects for move/rotate/lock/line clear/game over
 - Local high-score persistence in `.tetris_highscore.json`
+- Local profile stats persistence: best score, total lines, games played, avg lines/game
+- Settings menu with music/SFX volume, keybind remap, and fullscreen toggle
 
 ## Setup
 
@@ -47,3 +50,6 @@ pytest
 - R: restart
 - Esc: quit
 - Enter: start from title screen
+- Enter on title: open mode select
+- O: open settings
+

@@ -32,3 +32,18 @@ def test_game_over_when_spawn_blocked() -> None:
     game.board.grid[0][game.next_piece.x + 1] = "Z"
     game.hard_drop()
     assert game.game_over
+
+
+def test_sprint_mode_ends_at_40_lines() -> None:
+    game = GameState(seed=1)
+    game.reset(mode="sprint")
+    game.lines = 40
+    assert game.apply_mode_rules(elapsed_ms=0)
+    assert game.game_over
+
+
+def test_ultra_mode_ends_at_time_limit() -> None:
+    game = GameState(seed=1)
+    game.reset(mode="ultra")
+    assert game.apply_mode_rules(elapsed_ms=120_000)
+    assert game.game_over
