@@ -1,4 +1,4 @@
-"""Rendering utilities for Tetris."""
+"""Rendering utilities for Contructor."""
 
 from __future__ import annotations
 
@@ -50,7 +50,7 @@ class Renderer:
 
     def draw_start_screen(self, high_score: int) -> None:
         self.screen.fill(COLORS["bg"])
-        title = self.font.render("Tetris", True, COLORS["text"])
+        title = self.font.render("Contructor", True, COLORS["text"])
         prompt = self.small_font.render("Press Enter to Start", True, COLORS["text"])
         controls = self.small_font.render("Arrows/A,D,S | W/Up/X rotate | Space hard drop", True, COLORS["text"])
         pause_text = self.small_font.render("P pause  R restart  Esc quit", True, COLORS["text"])

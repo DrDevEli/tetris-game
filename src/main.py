@@ -1,4 +1,4 @@
-"""Entrypoint for the Tetris game."""
+"""Entrypoint for the Contructor game."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from tetris.sound import SoundManager
 
 def run() -> None:
     pygame.init()
-    pygame.display.set_caption("Tetris")
+    pygame.display.set_caption("Contructor")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
 

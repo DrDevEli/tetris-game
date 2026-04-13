@@ -1,6 +1,6 @@
-# Pygame Tetris
+# Contructor
 
-A playable Tetris clone built with Python and Pygame.
+A playable block-stacking game built with Python and Pygame.
 
 ## Features
 
